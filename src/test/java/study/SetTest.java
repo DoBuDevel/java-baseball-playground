@@ -7,14 +7,15 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.platform.commons.JUnitException;
 
 
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SetTest {
     private Set<Integer> numbers;
@@ -54,9 +55,12 @@ public class SetTest {
     // 요구사항3
     @DisplayName("csv test")
     @ParameterizedTest
-    @CsvSource({"1,true","2,4","3,5"})
-    void isNumberCsvContainTest(int number,int number2){
-        assertTrue(numbers.contains(number));
-        assertTrue(numbers.contains(number2));
+    @CsvSource({"1,true","2,true","3,true","true,false","4,false","5,false"})
+    void isNumberCsvContainTest(int number,boolean bool){
+        assertThatExceptionOfType(JUnitException.class)
+                .isThrownBy( () -> {
+                    assertFalse(false);
+                });
+        assertEquals(numbers.contains(number),bool);
     }
 }
