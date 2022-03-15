@@ -1,16 +1,18 @@
 package study;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class StringCalculator {
+public class StringCalculator2 {
+    public static void  main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("계산식을 입력 해주세요");
+        String value = scanner.nextLine();
+        System.out.println(calculator(value));
+    }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"2 + 3 * 4 / 2"})
-    int calculator(String value) {
+     static int calculator(String value) {
 
         String[] strArr = value.split(" ");
         List<Integer> intArr = new ArrayList<>();
@@ -19,7 +21,7 @@ public class StringCalculator {
         for (int i = 0; i < strArr.length; i++) {
             String str = strArr[i];
 
-            if (i / 2 == 0 && !isNumber(str)) {
+            if (i % 2 == 0 && !isNumber(str)) {
                 System.out.println("계산식을 확인해 주세요.");
                 return 0;
             }
@@ -54,9 +56,7 @@ public class StringCalculator {
         return result;
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"2"})
-    boolean isNumber(String str) {
+     static boolean isNumber(String str) {
         try {
             Integer.parseInt(str);
             return true;
@@ -65,3 +65,5 @@ public class StringCalculator {
         }
     }
 }
+
+
